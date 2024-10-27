@@ -34,8 +34,8 @@ This setup is designed to handle user and order management effectively while all
 ### Running the Application
 1. Clone the repository:
 ```
-  git clone https://github.com/yourusername/microservice-clean-architecture-golang.git
-  cd microservice-clean-architecture-golang
+  git clone https://github.com/yourusername/simple-go-microservice.git
+  cd simple-go-microservice
 
 ```
 2. Build and run the services using Docker Compose:
