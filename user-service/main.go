@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"user-service/internal/db"
 	"user-service/internal/handler"
 	"user-service/internal/repository"
@@ -12,7 +13,7 @@ import (
 func main() {
 	database, err := db.InitDB()
 	if err != nil {
-		panic(err)
+		log.Fatalf("Could not initialize database: %v", err)
 	}
 
 	userRepository := repository.NewUserRepository(database)

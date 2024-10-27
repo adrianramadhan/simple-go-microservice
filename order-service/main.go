@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-	// Initialize database connection
 	db, err := db.InitDB()
 	if err != nil {
 		log.Fatalf("Could not initialize database: %v", err)
