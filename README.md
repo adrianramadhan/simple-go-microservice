@@ -1,7 +1,7 @@
 # Microservice Architecture with API Gateway
 
 ## Overview
-This repository contains a microservice architecture that consists of an API Gateway, User Service, Order Service, and a shared database. 
+This repository contains a microservice architecture that consists of an API Gateway, User Service, Order Service, and a separate database. 
 The architecture follows the Clean Architecture principles, ensuring separation of concerns and scalability. 
 This setup is designed to handle user and order management effectively while allowing for future expansion of services.
 
