@@ -8,6 +8,15 @@ This setup is designed to handle user and order management effectively while all
 ## Architecture Diagram
 ![diagram-export-10-27-2024-5_29_34-PM](https://github.com/user-attachments/assets/4503466d-1909-45da-b245-8b540608c854)
 
+## Explanation of the Folder Structure
+- **config**: Contains configuration files and settings, ensuring centralized configuration management.
+- **internal/db**: Responsible for managing database connections and any related initialization tasks.
+- **internal/dto**: Data Transfer Objects are defined here to facilitate data exchange between different layers of the application.
+- **internal/entity**: This folder contains domain entities that represent the core business objects.
+- **internal/handler**: The HTTP request handlers are implemented here, defining how incoming requests are processed.
+- **internal/repository**: This layer handles all interactions with the database, abstracting data persistence logic.
+- **internal/service**: Contains the business logic of the application, orchestrating interactions between the handler and repository layers.
+- **main.go**: The entry point for the application, initializing the services and starting the server.
 
 ## Services
 ### Api Gateway
