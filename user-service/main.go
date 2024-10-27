@@ -21,5 +21,7 @@ func main() {
 
 	r := gin.Default()
 	r.POST("/users", userHandler.CreateUser)
-	r.Run(":8080")
+	r.GET("/users", userHandler.GetAllUsers)
+	r.GET("/users/:id", userHandler.GetUserById)
+	r.Run(":8081")
 }

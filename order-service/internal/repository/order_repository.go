@@ -8,6 +8,8 @@ import (
 
 type OrderRepository interface {
 	CreateOrder(order *entity.Order) (*entity.Order, error)
+	GetAllOrders() ([]entity.Order, error)
+	GetOrderById(id uint) (*entity.Order, error)
 }
 
 type orderRepository struct {
@@ -23,4 +25,20 @@ func (r *orderRepository) CreateOrder(order *entity.Order) (*entity.Order, error
 		return nil, err
 	}
 	return order, nil
+}
+
+func (r *orderRepository) GetAllOrders() ([]entity.Order, error) {
+	var orders []entity.Order
+	if err := r.db.Find(&orders).Error; err != nil {
+		return nil, err
+	}
+	return orders, nil
+}
+
+func (r *orderRepository) GetOrderById(id uint) (*entity.Order, error) {
+	var order entity.Order
+	if err := r.db.First(&order, id).Error; err != nil {
+		return nil, err
+	}
+	return &order, nil
 }

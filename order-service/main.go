@@ -23,7 +23,7 @@ func main() {
 
 	r := gin.Default()
 	r.POST("/orders", orderHandler.CreateOrder)
-	if err := r.Run(":8080"); err != nil {
-		log.Fatalf("Could not run server: %v", err)
-	}
+	r.GET("/orders", orderHandler.GetAllOrders)
+	r.GET("/orders/:id", orderHandler.GetOrderById)
+	r.Run(":8082")
 }
