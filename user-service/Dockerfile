@@ -1,26 +1,17 @@
-# Menggunakan image golang sebagai base
-FROM golang:1.22.2-alpine
+FROM golang:1.22.2-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy go.mod dan go.sum
 COPY go.mod go.sum ./
-
-# Install dependencies
 RUN go mod download
 
-# Copy source code
 COPY . .
-
-# Build binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o user-service .
 
-# Stage kedua untuk image yang lebih kecil
 FROM alpine:latest
 
-# Copy binary dari builder stage
+WORKDIR /root/
 COPY --from=builder /app/user-service .
 
-# Jalankan aplikasi
-ENTRYPOINT ["/user-service"]
+EXPOSE 8080
+ENTRYPOINT ["./user-service"]

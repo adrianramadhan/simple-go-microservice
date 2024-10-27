@@ -1,26 +1,19 @@
-# Menggunakan image golang sebagai base
-FROM golang:1.22.2-alpine
+# Stage 1: Build the application
+FROM golang:1.22.2-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy go.mod dan go.sum
 COPY go.mod go.sum ./
-
-# Install dependencies
 RUN go mod download
 
-# Copy source code
 COPY . .
-
-# Build binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o api-gateway .
 
-# Stage kedua untuk image yang lebih kecil
+# Stage 2: Create a smaller image with the binary
 FROM alpine:latest
 
-# Copy binary dari builder stage
+WORKDIR /root/
 COPY --from=builder /app/api-gateway .
 
-# Jalankan aplikasi
-ENTRYPOINT ["/api-gateway"]
+EXPOSE 8080
+ENTRYPOINT ["./api-gateway"]
