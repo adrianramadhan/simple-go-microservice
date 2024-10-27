@@ -50,7 +50,7 @@ The system uses a microservice architecture. Each service is independent, with i
 ### Running the Application
 1. Clone the repository:
 ```
-  git clone https://github.com/yourusername/simple-go-microservice.git
+  git clone https://github.com/adrianramadhan/simple-go-microservice.git
   cd simple-go-microservice
 
 ```
