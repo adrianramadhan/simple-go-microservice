@@ -1,15 +1,25 @@
 package main
 
 import (
-	"fmt"
 	"user-service/internal/db"
+	"user-service/internal/handler"
+	"user-service/internal/repository"
+	"user-service/internal/service"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	_, err := db.InitDB()
+	database, err := db.InitDB()
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Database connected")
+	userRepository := repository.NewUserRepository(database)
+	userService := service.NewUserService(userRepository)
+	userHandler := handler.NewUserHandler(userService)
+
+	r := gin.Default()
+	r.POST("/users", userHandler.CreateUser)
+	r.Run(":8080")
 }
