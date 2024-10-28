@@ -8,6 +8,13 @@ This setup is designed to handle user and order management effectively while all
 ## Architecture Diagram
 ![diagram-export-10-27-2024-5_29_34-PM](https://github.com/user-attachments/assets/4503466d-1909-45da-b245-8b540608c854)
 
+The system uses a microservice architecture. Each service is independent, with its own database:
+
+1. API Gateway: Acts as the entry point.
+2. User Service: A service for user management.
+3. Order Service: A service to manage orders associated with users.
+4. Each service is containerized and can be individually scaled or updated without affecting the others.
+
 ## Explanation of the Folder Structure
 - **config**: Contains configuration files and settings, ensuring centralized configuration management.
 - **internal/db**: Responsible for managing database connections and any related initialization tasks.
@@ -43,7 +50,7 @@ This setup is designed to handle user and order management effectively while all
 ### Running the Application
 1. Clone the repository:
 ```
-  git clone https://github.com/yourusername/simple-go-microservice.git
+  git clone https://github.com/adrianramadhan/simple-go-microservice.git
   cd simple-go-microservice
 
 ```
@@ -51,8 +58,11 @@ This setup is designed to handle user and order management effectively while all
 ```
   docker-compose up --build
 ```
-3. docker-compose up --build
-The API Gateway will be available at http://localhost:8080.
+3. Accessing Services:
+- API Gateway: http://localhost:8080
+- User Service: http://localhost:8081
+- Order Service: http://localhost:8082
+- pgAdmin (Database Management): http://localhost:8083 (if pgAdmin setup added)
 
 ## API Endpoints
 
@@ -60,15 +70,13 @@ The API Gateway will be available at http://localhost:8080.
 
 #### User Service
 - **POST /api/users**: Register a new user.
+- **GET /api/users**: List all users
 - **GET /api/users/{id}**: Retrieve user details.
-- **PUT /api/users/{id}**: Update existing user information.
-- **DELETE /api/users/{id}**: Delete a user.
 
 #### Order Service
 - **POST /api/orders**: Create a new order.
+- **GET /api/orders**: List all orders
 - **GET /api/orders/{id}**: Retrieve order details.
-- **PUT /api/orders/{id}**: Update existing order information.
-- **DELETE /api/orders/{id}**: Cancel an order.
 
 ## Architecture Principles
 
