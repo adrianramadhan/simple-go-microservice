@@ -9,6 +9,8 @@ services:
     depends_on:
       - user-service
       - order-service
+    networks:
+      - my-network
 
   user-db:
     image: postgres:latest
@@ -16,8 +18,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: user_db
-    ports:
-      - "5432:5432"
+    volumes:
+      - user-db-data:/var/lib/postgresql/data
+    networks:
+      - my-network
 
   order-db:
     image: postgres:latest
@@ -25,8 +29,12 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: order_db
+    volumes:
+      - order-db-data:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - "5433:5432"  # External port 5433 mapped to internal 5432 for order-db
+    networks:
+      - my-network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -38,6 +46,8 @@ services:
     depends_on:
       - user-db
       - order-db
+    networks:
+      - my-network
 
   user-service:
     build: ./user-service
@@ -51,6 +61,8 @@ services:
       - user-db
     ports:
       - "8081:8080"
+    networks:
+      - my-network
 
   order-service:
     build: ./order-service
@@ -64,3 +76,12 @@ services:
       - order-db
     ports:
       - "8082:8080"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+
+volumes:
+  user-db-data:
+  order-db-data:
